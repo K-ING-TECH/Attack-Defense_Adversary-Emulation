@@ -128,31 +128,30 @@ Attempted clearing event logs with wevtutil to cover tracks. Some operations ret
 ---
 
 ## 6. Findings & Recommendations
-Enforce Strong Access Controls
 
-Use MFA for RDP logins.
-Enforce lockout policies after multiple failed attempts.
-Restrict RDP Exposure
+Use MFA for RDP logins, secure jump host, a VPN or close the port
 
-Avoid public-facing RDP; use VPN or a secure jump host.
-Segment networks so that RDP is only accessible where necessary.
-Credential Protection
+Enforce lockout policies after multiple failed attempts
 
-Enable LSASS protections (e.g., Credential Guard).
-Regularly monitor for MiniDump or suspicious processes.
-Enhanced Logging & Alerts
+Observe NSG rules and firewall rules for any open holes (exposed ports)
 
-Alert on event log clearing attempts and new service creations.
-Monitor for repeated login failures or brute force patterns.
-Harden Built-in Admin Accounts
+Enable LSASS protections (e.g., Credential Guard)
 
-Rename or disable default **Administrator** if not strictly required.
+Regularly monitor for MiniDump or suspicious processes
+
+
+Alert on event log clearing attempts and new service creation
+
+Monitor for repeated login failures or brute force patterns
+
+Rename or disable default **Administrator** and any other default accounts such as **Guest** if not strictly required
+
 Implement password rotation and store credentials in a secure vault.
 
-All commands ran on target machine by attacker recorded here:
+All commands ran on the target machine by the attacker recorded here:
 [recorded commands](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Windows_CMD_Output.txt)
 
 ---
 
 ### 7. Conclusion
-From their Kali attack box, the Red Team scanned, brute-forced, and established RDP access to king-vm using the default Administrator account. Post-compromise, they performed reconnaissance, created new administrator accounts, dumped credentials from LSASS, and attempted to delete Windows event logs. This scenario illustrates how unsecured RDP endpoints can lead to devastating intrusions. Following NIST SP 800-115 guidelines, the organization can implement stricter remote access controls, better monitoring, and robust credential policies to mitigate similar threats in the future.
+From their **Kali** attack box, the Red Team scanned, brute-forced, and established RDP access to **king-vm** using the default **Administrator** account. Post-compromise, they performed reconnaissance, created new administrator accounts, dumped credentials from LSASS, and attempted to delete Windows event logs. This scenario illustrates how unsecured RDP endpoints can lead to devastating intrusions. Following **NIST SP 800-115** guidelines, the organization can implement stricter remote access controls, better monitoring, and robust credential policies to mitigate similar threats in the future.

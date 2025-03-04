@@ -1,4 +1,4 @@
-# Red Team Engagement: Suspicious Process & Credential Dump  
+# Red Team Engagement 
 ***Referencing NIST 800-115***  
 
 > **Disclaimer**: The following documentation highlights malicious tactics and techniques used **exclusively** for **authorized Red Team** or penetration-testing exercises in alignment with **NIST SP 800-115** (Technical Guide to Information Security Testing and Assessment). Any real-world, unauthorized execution of these steps is **illegal** and unethical.

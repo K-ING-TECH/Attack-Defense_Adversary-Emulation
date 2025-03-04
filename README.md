@@ -31,17 +31,25 @@ From the **Kali** host, the attacker scanned the target’s IP to discover open 
 
 - Found **RDP (3389)** open on **king-vm**.
 
+  ![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/nMap_Scan.png)
+
 ### 3.2 RDP Brute Force
 Using a password-guessing tool (**Hydra**) on Kali, the attacker ran repeated login attempts against the **Administrator** account:
 `hydra -l Administrator -P /path/to/passwordlist.txt rdp://<TARGET_IP>`
 - Eventually gained a **valid** password for the built-in **Administrator** user.  
 - This is visible in the screenshots, showing successful brute force output.
 
+  ![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Hydra_Enumeration.png)
+  ![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Credential_Discovery.png)
+
 ### 3.3 Establishing RDP Session
 With a **valid password** discovered, the adversary used an RDP client from Kali (or any remote RDP client) to log in:
 `rdesktop <TARGET_IP> -u Administrator -p <DiscoveredPassword>`
 - Successfully accessed the **king-vm** desktop.  
 - The screenshots show the attacker’s remote desktop session from Kali.
+
+![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/RDP_Initiation.png)
+![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Successful_RDP.png)
 
 ---
 
@@ -138,8 +146,11 @@ Alert on event log clearing attempts and new service creations.
 Monitor for repeated login failures or brute force patterns.
 Harden Built-in Admin Accounts
 
-Rename or disable default Administrator if not strictly required.
+Rename or disable default **Administrator** if not strictly required.
 Implement password rotation and store credentials in a secure vault.
+
+All commands ran on target machine by attacker recorded here:
+[recorded commands](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Windows_CMD_Output.txt)
 
 ---
 

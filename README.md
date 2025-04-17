@@ -42,7 +42,7 @@ From the **Kali** host, the attacker scanned the target’s IP to discover open 
 
 - Found **RDP (3389)** open on **king-vm**.
 
-  ![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/nMap_Scan.png)
+![nMap Scan](images/nMap_Scan.png)
 
 ### 3.2 RDP Brute Force
 Using a password-guessing tool (**Hydra**) on Kali, the attacker ran repeated login attempts against the **Administrator** account:
@@ -50,8 +50,8 @@ Using a password-guessing tool (**Hydra**) on Kali, the attacker ran repeated lo
 - Eventually gained a **valid** password for the built-in **Administrator** user.  
 - This is visible in the screenshots, showing successful brute force output.
 
-  ![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Hydra_Enumeration.png)
-  ![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Credential_Discovery.png)
+![Hydra Enumeration](images/Hydra_Enumeration.png)
+![Credential Discovery](images/Credential_Discovery.png)
 
 ### 3.3 Establishing RDP Session
 With a **valid password** discovered, the adversary used an RDP client from Kali (or any remote RDP client) to log in:
@@ -59,8 +59,8 @@ With a **valid password** discovered, the adversary used an RDP client from Kali
 - Successfully accessed the **king-vm** desktop.  
 - The screenshots show the attacker’s remote desktop session from Kali.
 
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/RDP_Initiation.png)
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Successful_RDP.png)
+![RDP Initiation](images/RDP_Initiation.png)
+![Successful RDP](images/Successful_RDP.png)
 
 ---
 
@@ -158,8 +158,10 @@ Attempted clearing event logs with wevtutil to cover tracks. Some operations ret
 
 - Implement password rotation and store credentials in a secure vault.
 
-- All commands ran on the target machine by the attacker recorded here:
-[recorded commands](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Windows_CMD_Output.txt)
+- All commands ran on the target machine by the attacker are recorded here:
+[View file ➡](CMD.txt/Windows_CMD_Output.txt)
+
+
 
 ---
 
@@ -200,7 +202,7 @@ A system alert indicated:
 
 This command can be associated with **LSASS credential dumping**.
 
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/Alert.png)
+![Alert](images/Alert.png)
 
 ```kql
 DeviceProcessEvents
@@ -216,7 +218,7 @@ Device: king-vm
 Process: rundll32 with comsvcs.dll, indicating potential LSASS dump
 User: **Administrator** (suspicious, given the nature of command)
 
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/query1.png)
+![Query 1](images/query1.png)
 
 
 ### 2.2 Brute Force RDP Discovery
@@ -236,7 +238,7 @@ Brute Force Start: 2025-03-03T16:32:50.6834465Z
 Brute Force Success: 2025-03-03T16:56:00.9833312Z
 Remote IP: 174.176.x.x
 
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/query2.png)
+![Query 2](images/query2.png)
 
 ### 2.3 Administrator Account Activity ±20 Minutes of Breach
 Evidence of system reconnaissance, credential dumping, and suspicious account modifications.
@@ -252,7 +254,7 @@ DeviceProcessEvents
 | order by Timestamp desc
 ```
 
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/query3.png)
+![Query 3](images/query3.png)
 
 #### Reconnaissance Commands:
 `systeminfo, hostname, whoami, winver` – confirming OS details, user identity, and system version.
@@ -275,7 +277,7 @@ DeviceNetworkEvents
 | order by Timestamp desc
 ```
 
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/query4.png)
+![Query 4](images/query4.png)
 
 Findings
 Initiating Process: **backgroundtransferhost.exe**
@@ -300,8 +302,9 @@ DeviceProcessEvents
 | project TimeGenerated, AccountName, ActionType, FileName, FolderPath, InitiatingProcessCommandLine, InitiatingProcessFileName, InitiatingProcessParentFileName
 ```
 
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/query5.png)
-![alt text](https://github.com/K-ING-TECH/Attack-Defense_Adversary-Emulation/blob/main/query6.png)
+![Query 5](images/query5.png)
+
+![Query 6](images/query6.png)
 
 ## 3. Containment
 Isolate the Device: Used Microsoft Defender for Endpoint to isolate **king-vm** from the network to halt external connections and further lateral movement.
